@@ -10,6 +10,14 @@ import { motion } from "framer-motion";
 //Redux
 import { useSelector } from "react-redux";
 
+//Images
+import playstation from '../images/playstation.svg';
+import steam from '../images/steam.svg';
+import xbox from '../images/xbox.svg';
+import nintendo from '../images/nintendo.svg';
+import apple from '../images/apple.svg';
+import gamepad from '../images/gamepad.svg';
+
 const GameDetail = ( {pathId} ) => {
 
     const history = useHistory()
@@ -21,6 +29,25 @@ const GameDetail = ( {pathId} ) => {
             document.body.style.overflow = 'auto';
             history.push('/');
         }
+    }
+
+    //Get Platform Images
+    const getPlatform = (platform) => {
+        if (platform === "PlayStation 4") {
+            return playstation;
+        } else if (platform === "PlayStation 5") {
+            return playstation;
+        } else if (platform === "Xbox 4") {
+            return xbox;
+        } else if (platform === "PC") {
+            return steam;
+        } else if (platform === "Nintendo Switch") {
+            return nintendo;
+        } else if (platform === "iOS") {
+            return apple;
+        } else {
+            return gamepad;
+        }          
     }
 
     //Data
@@ -40,7 +67,12 @@ const GameDetail = ( {pathId} ) => {
                                 <h3>Platforms</h3>
                                 <Platforms>
                                     {game.platforms && game.platforms.map((data) => (
-                                        <h3 key = {data.platform.id}> { data.platform.name } </h3>
+                                        <img 
+                                            key = {data.platform.id} 
+                                            src = {getPlatform(data.platform.id)}
+                                            alt = {data.platform.id}
+                                            title = {data.platform.id}>
+                                        </img>
                                     ))}
                                 </Platforms>
                             </Info>
@@ -71,6 +103,7 @@ const CardShadow = styled(motion.div) `
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 5;
     &&::-webkit-scrollbar {
         width: 0.5rem;
     }
@@ -90,6 +123,7 @@ const Detail = styled(motion.div) `
     position: absolute;
     left: 10%;
     color: black;
+    z-index: 10;
     img {
         width: 100%;
     }
